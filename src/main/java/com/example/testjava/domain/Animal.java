@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -29,4 +30,17 @@ public abstract class Animal {
     }
 
     public abstract void shout();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return Objects.equals(id, animal.id) && Objects.equals(name, animal.name) && Objects.equals(type, animal.type) && Objects.equals(numLeg, animal.numLeg);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, numLeg);
+    }
 }
